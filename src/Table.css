@@ -1,0 +1,16 @@
+.Table {
+  overflow: scroll;
+  height: 460px;
+  color: #6a6a6a;
+  display: flex;
+  flex-direction: column;
+}
+.Table .tablelist:nth-of-type(odd) {
+  background-color: #f3f3f3;
+}
+.tablelist {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
