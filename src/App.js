@@ -6,10 +6,10 @@ import Map from "./Map";
 import "./App.css";
 import "leaflet/dist/leaflet.css";
 // import { v4 as uuidv4 } from "uuid";
-import { Select, MenuItem, FormControl, CardContent, Card } from "@material-ui/core";
+import { InputLabel, Select, MenuItem, FormControl, CardContent, Card } from "@material-ui/core";
 
 function App() {
-  const [vendorZC, setVendorZC] = useState("ZipCode");
+  const [vendorZC, setVendorZC] = useState("");
   const [countryInfo, setcountryInfo] = useState([]);
   const [rawData, setRawData] = useState([]);
   const [zipCodeList, setzipCodeList] = useState([]);
@@ -42,8 +42,6 @@ function App() {
     ":@computed_region_92fq_4b7q": "43",
     ":@computed_region_sbqj_enih": "24",
   });
-  // const [tableData, settableData] = useState([]);
-
   const [mapData, setmapData] = useState([9, [40.806577968000056, -73.87986700999994]]);
   const [casesType, setcasesType] = useState("cases");
   useEffect(() => {
@@ -97,6 +95,7 @@ function App() {
         <div className="app__header">
           <h1>Recycle</h1>
           <FormControl>
+            <InputLabel>zip code</InputLabel>
             <Select variant="outlined" onChange={onZipCodeChange} value={vendorZC}>
               {zipCodeList.map((zc, i) => (
                 <MenuItem key={i} value={zc}>

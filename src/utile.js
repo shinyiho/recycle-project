@@ -23,6 +23,14 @@ const casesTypeColors = {
     multiplier: 2000,
   },
 };
+// const vendorNameStr = (str) => {
+//   let strArr = str.split(" ");
+//   let formatStr = strArr.reduce((a, b) => {
+//     return a + "+" + b;
+//   });
+//   window.open("https://www.google.com/maps/place/?q=" + formatStr);
+//   console.log(formatStr);
+// };
 
 export const showDataOnMap = (vendor, casesType = "cases") => (
   // console.log(vendor)
@@ -43,6 +51,14 @@ export const showDataOnMap = (vendor, casesType = "cases") => (
         <div className="info-name">Organics:{vendor.organics ? "yes" : "no"}</div>
         <div className="info-name">Paper:{vendor.paper ? "yes" : "no"}</div>
         <div className="info-name">Refuse:{vendor.refuse ? "yes" : "no"}</div>
+        <button
+          className="info-name"
+          onClick={() =>
+            window.open("https://maps.google.com?q=" + vendor.point.coordinates[1] + "," + vendor.point.coordinates[0])
+          }
+        >
+          Go
+        </button>
 
         {/* <div className="info-confirmed">Cases: {numeral(country.cases).format("0,0")}</div>
           <div className="info-recovered">Recovered: {numeral(country.recovered).format("0,0")}</div>
