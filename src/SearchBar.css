@@ -1,0 +1,15 @@
+.SearchBar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 80px;
+  width: 60vw;
+  /* padding-left: 25vw; */
+  /* background-color: beige; */
+  /* padding-right: 25vw; */
+  border: 2px solid rgba(122, 164, 82, 0.43);
+  border-radius: 6px;
+}
+input {
+  border: none;
+}

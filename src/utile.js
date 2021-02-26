@@ -1,5 +1,4 @@
 import React from "react";
-import numeral from "numeral";
 import { Circle, Popup } from "react-leaflet";
 // import { v4 as uuidv4 } from "uuid";
 
@@ -33,8 +32,6 @@ const casesTypeColors = {
 // };
 
 export const showDataOnMap = (vendor, casesType = "cases") => (
-  // console.log(vendor)
-  // data.map((target, i) => (
   <Circle
     // key={i}
     center={[vendor.point.coordinates[1], vendor.point.coordinates[0]]}
@@ -45,7 +42,6 @@ export const showDataOnMap = (vendor, casesType = "cases") => (
   >
     <Popup>
       <div className="info-container">
-        {console.log(vendor)}
         {/* <div className="info-flag" style={{ backgroundImage: `url(${vendor.name})` }}></div> */}
         <div className="info-name">{vendor.name}</div>
         <div className="info-name">Organics:{vendor.organics ? "yes" : "no"}</div>
