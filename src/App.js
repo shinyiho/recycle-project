@@ -121,22 +121,55 @@ function App() {
     ]);
     setmapData([[9, [40.806577968000056, -73.87986700999994]]]);
     //default的map資訊（default vendor default mapData）還沒決定
-
+    //find corresponding zipcode first
     let vs = rawData.filter((ob) => ob.zip === zipcode);
     let vendorchosen = [];
     let mapDatachosen = [];
     let zoomsize = 15;
-    // console.log(v);
     vs.forEach((v) => {
-      if (v[searchTerm] === true || searchTerm === "Items to discard, recycle, or .... ") {
+      //check corresponding searchterm if there is one
+      if (v[searchTerm] === true || searchTerm === "Items to discard, recycle, or .... " || searchTerm === "") {
         vendorchosen.push(v);
         mapDatachosen.push([zoomsize - vs.length / 2, [v.point.coordinates[1], v.point.coordinates[0]]]);
-
-        console.log(mapDatachosen);
-        console.log(vendorchosen);
       }
-      setVendor(vendorchosen);
-      setmapData(mapDatachosen);
+      //if nothing found set back to default
+      vendorchosen.length === 0
+        ? setVendor([
+            {
+              address: "287 Halleck St",
+              bbl: "2027770420.0",
+              bin: "2102044",
+              boro: "2",
+              borocd: "202",
+              city: "Bronx",
+              c_and_d: false,
+              districtcode: "BX02",
+              fid: "333",
+              globalid: "{6F008530-8E26-4159-9469-B252737277B3}",
+              label: "Metropolitan",
+              mgp: false,
+              name: "Metropolitan Transfer Station",
+              organics: true,
+              paper: false,
+              refuse: false,
+              state: "NY",
+              zip: "10474",
+              point: {
+                type: "Point",
+                coordinates: [-73.87986700999994, 40.806577968000056],
+              },
+              ":@computed_region_efsh_h5xi": "12343",
+              ":@computed_region_f5dn_yrer": "8",
+              ":@computed_region_yeji_bk3q": "5",
+              ":@computed_region_92fq_4b7q": "43",
+              ":@computed_region_sbqj_enih": "24",
+            },
+          ])
+        : setVendor(vendorchosen);
+      //if nothing found set back to default
+      mapDatachosen.length === 0
+        ? setmapData([[9, [40.806577968000056, -73.87986700999994]]])
+        : setmapData(mapDatachosen);
     });
   };
 
