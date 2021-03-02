@@ -31,36 +31,36 @@ const casesTypeColors = {
 //   console.log(formatStr);
 // };
 
-export const showDataOnMap = (vendor, casesType = "cases") => (
-  <Circle
-    // key={i}
-    center={[vendor.point.coordinates[1], vendor.point.coordinates[0]]}
-    color={casesTypeColors[casesType].hex}
-    fillColor={casesTypeColors[casesType].hex}
-    fillOpacity={0.4}
-    radius={30}
-  >
-    <Popup>
-      <div className="info-container">
-        {/* <div className="info-flag" style={{ backgroundImage: `url(${vendor.name})` }}></div> */}
-        <div className="info-name">{vendor.name}</div>
-        <div className="info-name">Organics:{vendor.organics ? "yes" : "no"}</div>
-        <div className="info-name">Paper:{vendor.paper ? "yes" : "no"}</div>
-        <div className="info-name">Refuse:{vendor.refuse ? "yes" : "no"}</div>
-        <button
-          className="info-name"
-          onClick={() =>
-            window.open("https://maps.google.com?q=" + vendor.point.coordinates[1] + "," + vendor.point.coordinates[0])
-          }
-        >
-          Go
-        </button>
+export const showDataOnMap = (vendor, casesType = "cases") =>
+  vendor.map((v, i) => (
+    <Circle
+      key={i}
+      center={[v.point.coordinates[1], v.point.coordinates[0]]}
+      color={casesTypeColors[casesType].hex}
+      fillColor={casesTypeColors[casesType].hex}
+      fillOpacity={0.4}
+      radius={40}
+    >
+      <Popup>
+        <div className="info-container">
+          {/* <div className="info-flag" style={{ backgroundImage: `url(${vendor.name})` }}></div> */}
+          <div className="info-name">{v.name}</div>
+          <div className="info-name">Organics:{v.organics ? "yes" : "no"}</div>
+          <div className="info-name">Paper:{v.paper ? "yes" : "no"}</div>
+          <div className="info-name">Refuse:{v.refuse ? "yes" : "no"}</div>
+          <button
+            className="info-name"
+            onClick={() =>
+              window.open("https://maps.google.com?q=" + v.point.coordinates[1] + "," + v.point.coordinates[0])
+            }
+          >
+            Go
+          </button>
 
-        {/* <div className="info-confirmed">Cases: {numeral(country.cases).format("0,0")}</div>
+          {/* <div className="info-confirmed">Cases: {numeral(country.cases).format("0,0")}</div>
           <div className="info-recovered">Recovered: {numeral(country.recovered).format("0,0")}</div>
           <div className="info-deaths">Deaths: {numeral(country.deaths).format("0,0")}</div> */}
-      </div>
-    </Popup>
-  </Circle>
-);
-// ));
+        </div>
+      </Popup>
+    </Circle>
+  ));

@@ -11,38 +11,43 @@ import "leaflet/dist/leaflet.css";
 function App() {
   // let apikey = "76d30b7fd0f748dbabb17f83320b67ca";
   const [rawData, setRawData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("Items to discard, recycle, or .... ");
   const [userGeoLocation, setUserGeoLocation] = useState({});
-  const [vendor, setVendor] = useState({
-    address: "287 Halleck St",
-    bbl: "2027770420.0",
-    bin: "2102044",
-    boro: "2",
-    borocd: "202",
-    city: "Bronx",
-    c_and_d: false,
-    districtcode: "BX02",
-    fid: "333",
-    globalid: "{6F008530-8E26-4159-9469-B252737277B3}",
-    label: "Metropolitan",
-    mgp: false,
-    name: "Metropolitan Transfer Station",
-    organics: true,
-    paper: false,
-    refuse: false,
-    state: "NY",
-    zip: "10474",
-    point: {
-      type: "Point",
-      coordinates: [-73.87986700999994, 40.806577968000056],
+  const [vendor, setVendor] = useState([
+    {
+      address: "287 Halleck St",
+      bbl: "2027770420.0",
+      bin: "2102044",
+      boro: "2",
+      borocd: "202",
+      city: "Bronx",
+      c_and_d: false,
+      districtcode: "BX02",
+      fid: "333",
+      globalid: "{6F008530-8E26-4159-9469-B252737277B3}",
+      label: "Metropolitan",
+      mgp: false,
+      name: "Metropolitan Transfer Station",
+      organics: true,
+      paper: false,
+      refuse: false,
+      state: "NY",
+      zip: "10474",
+      point: {
+        type: "Point",
+        coordinates: [-73.87986700999994, 40.806577968000056],
+      },
+      ":@computed_region_efsh_h5xi": "12343",
+      ":@computed_region_f5dn_yrer": "8",
+      ":@computed_region_yeji_bk3q": "5",
+      ":@computed_region_92fq_4b7q": "43",
+      ":@computed_region_sbqj_enih": "24",
     },
-    ":@computed_region_efsh_h5xi": "12343",
-    ":@computed_region_f5dn_yrer": "8",
-    ":@computed_region_yeji_bk3q": "5",
-    ":@computed_region_92fq_4b7q": "43",
-    ":@computed_region_sbqj_enih": "24",
-  });
-  const [mapData, setmapData] = useState([9, [40.806577968000056, -73.87986700999994]]);
-
+  ]);
+  const [mapData, setmapData] = useState([[9, [40.806577968000056, -73.87986700999994]]]);
+  let setsearchterm = (term) => {
+    setSearchTerm(term);
+  };
   useEffect(() => {
     let fetchingDataFromNYOD = () => {
       fetch("https://data.cityofnewyork.us/resource/mf9g-zhbw.json")
@@ -80,17 +85,71 @@ function App() {
   }, []);
 
   const onZipCodeChange = (zipcode) => {
-    let v = rawData.find((ob) => ob.zip === zipcode);
-    setVendor(v);
-    setmapData([15, [v.point.coordinates[1], v.point.coordinates[0]]]);
-    console.log(mapData);
+    //目前查不到都是回到Metropolitan Transfer Station
+    //default的map資訊（default vendor default mapData）還沒決定
+
+    setVendor([
+      {
+        address: "287 Halleck St",
+        bbl: "2027770420.0",
+        bin: "2102044",
+        boro: "2",
+        borocd: "202",
+        city: "Bronx",
+        c_and_d: false,
+        districtcode: "BX02",
+        fid: "333",
+        globalid: "{6F008530-8E26-4159-9469-B252737277B3}",
+        label: "Metropolitan",
+        mgp: false,
+        name: "Metropolitan Transfer Station",
+        organics: true,
+        paper: false,
+        refuse: false,
+        state: "NY",
+        zip: "10474",
+        point: {
+          type: "Point",
+          coordinates: [-73.87986700999994, 40.806577968000056],
+        },
+        ":@computed_region_efsh_h5xi": "12343",
+        ":@computed_region_f5dn_yrer": "8",
+        ":@computed_region_yeji_bk3q": "5",
+        ":@computed_region_92fq_4b7q": "43",
+        ":@computed_region_sbqj_enih": "24",
+      },
+    ]);
+    setmapData([[9, [40.806577968000056, -73.87986700999994]]]);
+    //default的map資訊（default vendor default mapData）還沒決定
+
+    let vs = rawData.filter((ob) => ob.zip === zipcode);
+    let vendorchosen = [];
+    let mapDatachosen = [];
+    let zoomsize = 15;
+    // console.log(v);
+    vs.forEach((v) => {
+      if (v[searchTerm] === true || searchTerm === "Items to discard, recycle, or .... ") {
+        vendorchosen.push(v);
+        mapDatachosen.push([zoomsize - vs.length / 2, [v.point.coordinates[1], v.point.coordinates[0]]]);
+
+        console.log(mapDatachosen);
+        console.log(vendorchosen);
+      }
+      setVendor(vendorchosen);
+      setmapData(mapDatachosen);
+    });
   };
 
   return (
     <div className="App">
       <Header />
       <h1>Wher to & to Where</h1>
-      <SearchBar onZipCodeChange={onZipCodeChange} userGeoLocation={userGeoLocation} />
+      <SearchBar
+        setsearchterm={setsearchterm}
+        searchTerm={searchTerm}
+        onZipCodeChange={onZipCodeChange}
+        userGeoLocation={userGeoLocation}
+      />
       <div className="map">
         <div className="map-left">
           <h1>search result</h1>
