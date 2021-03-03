@@ -35,4 +35,7 @@ h1 {
 .map-left {
   width: 50vw;
   flex: 0.5;
+  overflow: scroll;
+  height: 550px;
+  margin: 0;
 }

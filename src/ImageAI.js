@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import ml5 from "ml5";
+import "./ImageAI.css";
 let classifier;
 const ImageAI = ({ setsearchterm }) => {
   // const URL = "https://teachablemachine.withgoogle.com/models/NvjC7RVLO/";
@@ -49,11 +50,14 @@ const ImageAI = ({ setsearchterm }) => {
   };
 
   return (
-    <div>
-      <video ref={videoRef} style={{ transform: "scale(-1, 1)" }} width="200" height="150" />
+    <div className="ImageAI">
+      <video ref={videoRef} style={{ transform: "scale(-1, 1)" }} width="160" height="120" />
       {/* <button onClick={beginclassify}>start</button> */}
-      {loaded && <button onClick={() => toggle()}>{start ? "Stop" : "Start"}</button>}
-      <h3>{result}</h3>
+      {loaded && (
+        <button className="ImageAIbtn" onClick={() => toggle()}>
+          {start ? "Stop" : "Classify"}
+        </button>
+      )}
     </div>
   );
 };

@@ -1,0 +1,19 @@
+.ImageAIbtn {
+  border: none;
+  background-color: white;
+  margin: 0;
+  text-decoration: none;
+}
+.ImageAI {
+  display: flex;
+}
+button:focus {
+  outline: 0;
+}
+
+input {
+  text-align: center;
+}
+input:focus {
+  outline: 0;
+}

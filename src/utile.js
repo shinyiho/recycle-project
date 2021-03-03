@@ -36,10 +36,10 @@ export const showDataOnMap = (vendor, casesType = "cases") =>
     <Circle
       key={i}
       center={[v.point.coordinates[1], v.point.coordinates[0]]}
-      color={casesTypeColors[casesType].hex}
-      fillColor={casesTypeColors[casesType].hex}
-      fillOpacity={0.4}
-      radius={40}
+      color={v.address === "" ? "" : casesTypeColors[casesType].hex}
+      fillColor={v.address === "" ? "" : casesTypeColors[casesType].hex}
+      fillOpacity={v.address === "" ? 0 : 0.4}
+      radius={800}
     >
       <Popup>
         <div className="info-container">

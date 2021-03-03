@@ -5,8 +5,9 @@ import ImageAI from "./ImageAI";
 import CameraAltIcon from "@material-ui/icons/CameraAlt";
 import Button from "@material-ui/core/Button";
 
-const SearchBar = ({ onZipCodeChange, userGeoLocation, setsearchterm, searchTerm }) => {
+const SearchBar = ({ searchBtn, userGeoLocation }) => {
   const [zipcode, setZipcode] = useState("zipcode");
+  const [searchTerm, setSearchTerm] = useState("Items to discard, recycle, or .... ");
   const [openImageAI, setopenImageAI] = useState(false);
 
   // const [searchTerm, setSearchTerm] = useState("");
@@ -22,11 +23,13 @@ const SearchBar = ({ onZipCodeChange, userGeoLocation, setsearchterm, searchTerm
       setZipcode(userGeoLocation.zipcode);
     }
   }, [userGeoLocation]);
-
+  let setsearchterm = (term) => {
+    setSearchTerm(term);
+  };
   return (
     <div className="SearchBar">
       <SearchIcon />
-      <input type="text" onChange={(e) => setsearchterm(e.target.value)} placeholder={searchTerm}></input>
+      <input type="text" onChange={(e) => setSearchTerm(e.target.value)} placeholder={searchTerm}></input>
       <CameraAltIcon
         onClick={() => {
           setopenImageAI(true);
@@ -40,7 +43,7 @@ const SearchBar = ({ onZipCodeChange, userGeoLocation, setsearchterm, searchTerm
         variant="contained"
         onClick={() => {
           setopenImageAI(false);
-          onZipCodeChange(zipcode);
+          searchBtn(zipcode, searchTerm);
 
           // class="leaflet-popup  leaflet-zoom-animated"
           // style="opacity:0"

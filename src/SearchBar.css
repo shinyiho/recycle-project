@@ -1,8 +1,10 @@
 .SearchBar {
   display: flex;
+  padding: 0px 20px;
   justify-content: space-around;
   align-items: center;
   margin: 80px;
+  height: 140px;
   width: 60vw;
   /* padding-left: 25vw; */
   /* background-color: beige; */
@@ -12,4 +14,5 @@
 }
 input {
   border: none;
+  flex: 1;
 }
